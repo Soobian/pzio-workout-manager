@@ -8,6 +8,7 @@ import { useFonts } from 'expo-font';
 import HomeScreen from './src/screens/HomeScreen';
 
 import { RootStackParamList } from './src/types/navigation'
+import LoadingScreen from './src/screens/LoadingScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,7 +18,7 @@ export default function App() {
     });
     
     if (!loaded) {
-        return null;
+        return <LoadingScreen/>;
     }
 
     return (
