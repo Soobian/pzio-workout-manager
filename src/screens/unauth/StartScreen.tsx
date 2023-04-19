@@ -52,24 +52,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: normalize(20),
         width: width,
-        paddingHorizontal: 20,
+        paddingHorizontal: normalize(20),
         paddingVertical: 30,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         backgroundColor: COLORS.backgroundColor,
     },
     headerText: {
+        fontFamily: FONTS.Regular,
         fontSize: normalize(30),
         fontWeight: 'bold',
-        fontFamily: FONTS.Regular,
     },
     registerButton: {
         width: width * 0.8,
     },
     loginContainer: {
-
+        
     },
     loginText: {
+        fontFamily: FONTS.Regular,
         fontSize: normalize(16),
     },
     loginButton: {
