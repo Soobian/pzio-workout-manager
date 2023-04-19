@@ -42,7 +42,6 @@ export default InputWithLabel
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        marginVertical: 5,
         gap: normalize(10),
     },
     inputText: {

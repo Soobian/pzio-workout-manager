@@ -10,6 +10,8 @@ import HomeScreen from './src/screens/HomeScreen';
 import { RootStackParamList } from './src/types/navigation'
 import LoadingScreen from './src/screens/LoadingScreen';
 import StartScreen from './src/screens/unauth/StartScreen';
+import RegisterScreen from './src/screens/unauth/RegisterScreen';
+import LoginScreen from './src/screens/unauth/LoginScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,7 +31,8 @@ export default function App() {
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Group>
-                        <Stack.Screen options={{headerShown: false}} name="Start" component={StartScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="Start" component={LoginScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="Register" component={RegisterScreen}/>
                     </Stack.Group>
                     <Stack.Group>
                         <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen}/>

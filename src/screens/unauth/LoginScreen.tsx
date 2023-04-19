@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -6,28 +6,26 @@ import InputWithLabel from '../../components/InputWithLabel'
 import Button from '../../components/Button'
 import TopBar from '../../components/TopBar'
 
-import { normalize } from '../../utils/screen-size'
-import { FONTS } from '../../constants/fonts'
+import { normalize } from '../../utils/screen-size';
+import { FONTS } from '../../constants/fonts';
 
 const { height, width } = Dimensions.get('window');
 
-const RegisterScreen = () => {
+const LoginScreen = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
 
     return (
         <SafeAreaView style={styles.container}>
-            <TopBar title='Create Your Account'/>
+            <TopBar title='Log In'/>
             <View style={styles.contentContainer}>
                 <View style={styles.formContainer}>
                     <View style={styles.formFieldsContainer}>
                         <InputWithLabel text={'Email'} value={email} onChangeValue={setEmail}/>
                         <InputWithLabel text={'Password'} value={password} onChangeValue={setPassword} password={true}/>
-                        <InputWithLabel text={'Confirm Password'} value={confirmPassword} onChangeValue={setConfirmPassword} password={true}/>
                     </View>
                     <Button 
-                    text='Create Your Account' 
+                    text='Log In' 
                     onPress={()=>{}}
                     style={styles.registerButton}/>
                 </View>
@@ -36,7 +34,7 @@ const RegisterScreen = () => {
     )
 }
 
-export default RegisterScreen
+export default LoginScreen
 
 const styles = StyleSheet.create({
     container: {
