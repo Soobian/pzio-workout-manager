@@ -9,13 +9,17 @@ import HomeScreen from './src/screens/HomeScreen';
 
 import { RootStackParamList } from './src/types/navigation'
 import LoadingScreen from './src/screens/LoadingScreen';
-import StartScreen from './src/screens/StartScreen';
+import StartScreen from './src/screens/unauth/StartScreen';
+import RegisterScreen from './src/screens/unauth/RegisterScreen';
+import LoginScreen from './src/screens/unauth/LoginScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
     const [loaded] = useFonts({
         'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
+        'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
+        'Inter-Black': require('./assets/fonts/Inter-Black.ttf'),
     });
     
     if (!loaded) {
@@ -28,6 +32,8 @@ export default function App() {
                 <Stack.Navigator>
                     <Stack.Group>
                         <Stack.Screen options={{headerShown: false}} name="Start" component={StartScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="Register" component={RegisterScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen}/>
                     </Stack.Group>
                     <Stack.Group>
                         <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen}/>
