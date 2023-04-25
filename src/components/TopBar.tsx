@@ -1,5 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+
 import { FONTS } from '../constants/fonts';
 import { normalize } from '../utils/screen-size';
 
@@ -8,9 +10,11 @@ type Props = {
 }
 
 const TopBar = ({title}: Props) => {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.touchContainer} onPress={()=>{}}>
+            <TouchableOpacity style={styles.touchContainer} onPress={navigation.goBack}>
                 <Image style={styles.touchImage} source={require('../../assets/back-arrow.png')}/>
             </TouchableOpacity>
             <Text style={styles.topText}>{title ? title : ''}</Text>

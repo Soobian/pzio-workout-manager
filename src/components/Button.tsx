@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         borderRadius: normalize(25),
     },
     text: {
+        color: COLORS.whiteText,
         fontFamily: FONTS.Bold,
         fontSize: normalize(18),
     }

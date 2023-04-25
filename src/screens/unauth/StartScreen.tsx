@@ -1,5 +1,6 @@
 import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions, StatusBar } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 import { COLORS } from '../../constants/colors';
 import { FONTS } from  '../../constants/fonts';
@@ -11,6 +12,8 @@ import TouchableText from '../../components/TouchableText';
 const { height, width } = Dimensions.get('window');
 
 const StartScreen = () => {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             <View style={styles.contentContainer}>
@@ -19,7 +22,7 @@ const StartScreen = () => {
                 </Text>
                 <Button 
                 text='Create Your Account' 
-                onPress={()=>{}}
+                onPress={() => navigation.navigate("Register")}
                 style={styles.registerButton}/>
                 <View style={styles.loginContainer}>
                     <Text style={styles.loginText}>
@@ -27,7 +30,7 @@ const StartScreen = () => {
                     </Text>
                     <TouchableText
                     text='Sign In Here'
-                    onPress={()=>{}}
+                    onPress={() => navigation.navigate("Login")}
                     style={styles.loginButton}/>
                 </View>
             </View>

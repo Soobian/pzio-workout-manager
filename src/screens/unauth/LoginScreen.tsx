@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native';
 
 import InputWithLabel from '../../components/InputWithLabel'
 import Button from '../../components/Button'
@@ -14,6 +15,8 @@ const { height, width } = Dimensions.get('window');
 const LoginScreen = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const navigation = useNavigation();
 
     return (
         <SafeAreaView style={styles.container}>
