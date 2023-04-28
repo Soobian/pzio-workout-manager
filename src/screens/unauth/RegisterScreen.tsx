@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native';
 
 import InputWithLabel from '../../components/InputWithLabel'
 import Button from '../../components/Button'
@@ -16,6 +17,8 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
+    const navigation = useNavigation();
+
     return (
         <SafeAreaView style={styles.container}>
             <TopBar title='Create Your Account'/>
@@ -28,7 +31,7 @@ const RegisterScreen = () => {
                     </View>
                     <Button 
                     text='Create Your Account' 
-                    onPress={()=>{}}
+                    onPress={()=>navigation.navigate("Start")}
                     style={styles.registerButton}/>
                 </View>
             </View>

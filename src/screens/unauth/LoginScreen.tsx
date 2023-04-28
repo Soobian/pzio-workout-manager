@@ -29,7 +29,7 @@ const LoginScreen = () => {
                     </View>
                     <Button 
                     text='Log In' 
-                    onPress={()=>{}}
+                    onPress={()=>navigation.navigate("Home")}
                     style={styles.registerButton}/>
                 </View>
             </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
-        paddingHorizontal: normalize(30),
+        paddingHorizontal: normalize(20),
         display: 'flex',
         flexDirection: 'column',
     },
