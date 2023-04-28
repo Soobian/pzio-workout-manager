@@ -10,7 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 type Props = {
     text: string,
     style: ViewStyle,
-    onPress: () => void;
+    onPress: any;
 }
 
 const Button = ({ text, style, onPress }: Props) => {

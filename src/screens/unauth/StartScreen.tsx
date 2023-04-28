@@ -1,6 +1,9 @@
 import { TouchableOpacity, StyleSheet, Text, View, Image, Dimensions, StatusBar } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
+
+import { tokenAPI } from '../../api/API';
 
 import { COLORS } from '../../constants/colors';
 import { FONTS } from  '../../constants/fonts';
@@ -13,6 +16,22 @@ const { height, width } = Dimensions.get('window');
 
 const StartScreen = () => {
     const navigation = useNavigation();
+
+    useEffect(() => {
+        console.log(SecureStore.getItemAsync('access_token'));
+        if(SecureStore.getItemAsync('refresh_token') !== null){
+            tokenAPI.post('token/refresh/', {
+                refresh: SecureStore.getItemAsync('refresh_token')
+            })
+            .then((response: { data: { access: string } }) => {
+                SecureStore.setItemAsync('access_token', response.data.access)
+                navigation.navigate('Home')
+            })
+            .catch((error: any) => {
+                console.log("Refresh token not valid")
+            })
+        }
+    }, [])
 
     return (
         <View style={styles.container}>

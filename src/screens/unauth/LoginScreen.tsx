@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 
 import InputWithLabel from '../../components/InputWithLabel'
 import Button from '../../components/Button'
 import TopBar from '../../components/TopBar'
+
+import { tokenAPI } from '../../api/API';
 
 import { normalize } from '../../utils/screen-size';
 import { FONTS } from '../../constants/fonts';
@@ -15,8 +18,32 @@ const { height, width } = Dimensions.get('window');
 const LoginScreen = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isAuthorized, setAuthorization] = useState(false)
 
     const navigation = useNavigation();
+
+    const handleLogin = (e: Event) => {
+        e.preventDefault();
+        const payload = JSON.stringify({email, password});
+        console.log(payload);
+
+        const onSuccess = ({ data }: any) => {
+            console.log(data.access)
+            console.log(data.refresh)
+            SecureStore.setItemAsync('access_token', data.access)
+            SecureStore.setItemAsync('refresh_token', data.refresh)
+            setAuthorization(true)
+            navigation.navigate("Home")
+        };
+        
+        const onFailure = (error: any) => {
+            console.log(error);
+        };
+
+        tokenAPI.post('token/', payload)
+            .then(onSuccess)
+            .catch(onFailure);
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -29,7 +56,7 @@ const LoginScreen = () => {
                     </View>
                     <Button 
                     text='Log In' 
-                    onPress={()=>navigation.navigate("Home")}
+                    onPress={handleLogin.bind(this)}
                     style={styles.registerButton}/>
                 </View>
             </View>
