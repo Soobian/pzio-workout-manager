@@ -5,13 +5,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 
-import HomeScreen from './src/screens/HomeScreen';
+import HomeScreen from './src/screens/auth/HomeScreen';
 
 import { RootStackParamList } from './src/types/navigation'
 import LoadingScreen from './src/screens/LoadingScreen';
 import StartScreen from './src/screens/unauth/StartScreen';
 import RegisterScreen from './src/screens/unauth/RegisterScreen';
 import LoginScreen from './src/screens/unauth/LoginScreen';
+import AuthStack from './src/stacks/AuthStack';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,19 +37,10 @@ export default function App() {
                         <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen}/>
                     </Stack.Group>
                     <Stack.Group>
-                        <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="Auth" component={AuthStack}/>
                     </Stack.Group>
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

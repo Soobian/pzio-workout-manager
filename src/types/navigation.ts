@@ -5,6 +5,7 @@ type RootStackParamList = {
     Login: undefined,
     Register: undefined,
     Home: undefined;
+    Auth: undefined;
 };
   
 declare global {
@@ -16,5 +17,12 @@ declare global {
 type LoginNavigationProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 type RegisterNavigationProps = NativeStackScreenProps<RootStackParamList, 'Register'>
 type StartNavigationProps = NativeStackScreenProps<RootStackParamList, 'Start'>
+type AuthNavigationProps = NativeStackScreenProps<RootStackParamList, 'Auth'>
   
-export { RootStackParamList, LoginNavigationProps, RegisterNavigationProps, StartNavigationProps }
+export { 
+    RootStackParamList, 
+    LoginNavigationProps, 
+    RegisterNavigationProps, 
+    StartNavigationProps,
+    AuthNavigationProps,
+}

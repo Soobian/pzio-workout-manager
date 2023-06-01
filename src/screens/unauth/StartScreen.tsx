@@ -50,7 +50,8 @@ const StartScreen = () => {
                     <TouchableText
                     text='Sign In Here'
                     onPress={() => navigation.navigate("Login")}
-                    style={styles.loginButton}/>
+                    containerStyle={styles.loginButton}
+                    textStyle={styles.loginButtonText}/>
                 </View>
             </View>
         </View>
@@ -96,7 +97,13 @@ const styles = StyleSheet.create({
         fontSize: normalize(16),
     },
     loginButton: {
-        padding: normalize(10),
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: normalize(10),
+    },
+    loginButtonText: {
+        fontFamily: FONTS.Bold,
     },
     descriptionText: {
         fontSize: normalize(20),

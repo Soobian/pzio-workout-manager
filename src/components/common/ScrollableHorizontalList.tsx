@@ -1,27 +1,31 @@
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
-import { FONTS } from '../constants/fonts';
-import { normalize } from '../utils/screen-size';
+
+import { FONTS } from '../../constants/fonts';
+import { normalize } from '../../utils/screen-size';
 
 const { height, width } = Dimensions.get('window');
 
-const Plan = ({ name }: { name: string }) => {
-    return (
-        <TouchableOpacity style={styles.planContainer}>
+const ListElement = ({ name }: { name: string }) => {
+    return(
+        <TouchableOpacity style={styles.listContainer}>
             <ImageBackground
-            source={require('../../assets/placeholder.png')} 
+            source={require('../../../assets/placeholder.png')}
             resizeMode="cover"
-            style={styles.planBackgroundImageContainer} 
-            imageStyle={styles.planBackgroundImage}>
+            style={styles.backgroundImageContainer} 
+            imageStyle={styles.backgroundImage}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{name}</Text>
+                    <View>
+                            
+                    </View>
                 </View>
             </ImageBackground>
         </TouchableOpacity>
     )
 }
 
-const Plans = () => {
+const ScrollableHorizontalList = (props: any) => {
     const data = [
         { name: 'Item 1' },
         { name: 'Item 2' },
@@ -31,43 +35,40 @@ const Plans = () => {
     ]
 
     return (
-        <View>
-            <ScrollView 
-            horizontal = {true} 
-            keyboardShouldPersistTaps = 'always'
-            showsHorizontalScrollIndicator = {false} 
-            style={styles.plansScroll}>
-                {data.map((item, index) => (
-                    <Plan key={index} name={item.name}/>
-                ))}
-            </ScrollView>
-        </View>
+        <ScrollView 
+        horizontal = {true} 
+        keyboardShouldPersistTaps = 'always'
+        showsHorizontalScrollIndicator = {false} 
+        style={styles.container}>
+            {data.map((item, index) => (
+                <ListElement key={index} name={item.name}/>
+            ))}
+        </ScrollView>
     )
 }
 
-export default Plans
+export default ScrollableHorizontalList
 
 const styles = StyleSheet.create({
-    planContainer: {
+    container: {
+        paddingVertical: normalize(5),
+        marginHorizontal: normalize(-5),
+    },
+    listContainer: {
         flex: 1,
         display: 'flex',
         marginHorizontal: normalize(10),
         marginVertical: normalize(5),
     },
-    planBackgroundImageContainer: {
+    backgroundImageContainer: {
         aspectRatio: 4/3,
         height: height/4,
         borderRadius: normalize(10),
     },
-    planBackgroundImage: {
+    backgroundImage: {
         borderRadius: normalize(10),
         borderWidth: 2,
         borderColor: '#afafaf',
-    },
-    plansScroll: {
-        display: 'flex',
-        paddingVertical: normalize(5),
-        marginHorizontal: normalize(-5),
     },
     textContainer: {
         flex: 1,

@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { COLORS } from '../constants/colors';
-import { normalize } from '../utils/screen-size';
-import { FONTS } from '../constants/fonts';
+import { COLORS } from '../../constants/colors';
+import { normalize } from '../../utils/screen-size';
+import { FONTS } from '../../constants/fonts';
 
 const WeekCalendar = () => {
     const currentDay = new Date().getDay();

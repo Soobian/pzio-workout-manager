@@ -26,14 +26,14 @@ const LoginScreen = () => {
         e.preventDefault();
         const payload = JSON.stringify({email, password});
         console.log(payload);
-
+        /*
         const onSuccess = ({ data }: any) => {
             console.log(data.access)
             console.log(data.refresh)
             SecureStore.setItemAsync('access_token', data.access)
             SecureStore.setItemAsync('refresh_token', data.refresh)
             setAuthorization(true)
-            navigation.navigate("Home")
+            navigation.navigate("Auth")
         };
         
         const onFailure = (error: any) => {
@@ -43,6 +43,8 @@ const LoginScreen = () => {
         tokenAPI.post('token/', payload)
             .then(onSuccess)
             .catch(onFailure);
+        */
+        navigation.navigate("Auth")
     }
 
     return (
@@ -55,8 +57,9 @@ const LoginScreen = () => {
                         <InputWithLabel text={'Password'} value={password} onChangeValue={setPassword} password={true}/>
                     </View>
                     <Button 
-                    text='Log In' 
+                    text='Log In'
                     onPress={handleLogin.bind(this)}
+                    //onPress={navigation.navigate('Auth')}
                     style={styles.registerButton}/>
                 </View>
             </View>

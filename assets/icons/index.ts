@@ -1,0 +1,9 @@
+export const DUMBBELL = require('./icons8-dumbbell-100.png');
+export const HOME = require('./icons8-home-100.png');
+export const USER = require('./icons8-user-100.png');
+export const MAN = require('./icons8-man-100.png');
+export const WOMAN = require('./icons8-woman-100.png');
+export const WAIST = require('./icons8-waist-90.png');
+export const BICEPS = require('./icons8-biceps-100.png');
+export const CHEST = require('./icons8-chest-100.png');
+export const QUADS = require('./icons8-quadriceps-100.png');
