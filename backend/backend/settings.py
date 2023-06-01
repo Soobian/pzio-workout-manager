@@ -22,8 +22,6 @@ SECRET_KEY = 'django-insecure-+*vljy6+f7qhijt5b%wnw*%8*vcw0-z-6pv@9%nr*&^=72gz0^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -38,6 +36,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'users',
+    'workout',
+    'measurements',
     'django.contrib.admindocs',
 ]
 
@@ -102,7 +102,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 try:
-    from backend.local_settings import DATABASES
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'workout_manager',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
+
 
 except ImportError as e:
     logging.warning(f"{e.name}: No local_settings.py found.")
