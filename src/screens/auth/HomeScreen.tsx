@@ -1,41 +1,115 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ScrollableHorizontalList from '../../components/common/ScrollableHorizontalList';
+import jwt_decode from "jwt-decode";
+import * as SecureStore from 'expo-secure-store'
+import { useIsFocused } from "@react-navigation/native";
 
 import { normalize } from '../../utils/screen-size';
 import { FONTS } from '../../constants/fonts';
+import { COLORS } from '../../constants/colors';
+
 import WeekCalendar from '../../components/home/WeekCalendar';
+import ScrollableHorizontalList from '../../components/common/ScrollableHorizontalList';
 import Plan from '../../components/home/Plan';
 import TouchableText from '../../components/TouchableText';
-import { COLORS } from '../../constants/colors';
 import Workout from '../../components/home/Workout';
+import { tokenAPI } from '../../api/API';
 
-const HomeScreen = () => {
-    const data = [
-        { name: 'Item 1' },
-        { name: 'Item 2' },
-        { name: 'Item 3' },
-        { name: 'Item 4' },
-        { name: 'Item 5' },
-    ]
+const HomeScreen = (props: any) => {
+    const isFocused = useIsFocused();
+    const [plans, setPlans] = useState<any>([]);
+    const [exercises, setExercises] = useState<any>([]);
+
+    useEffect(() => {
+        SecureStore.getItemAsync('access_token')
+        .then((token) => {
+            const tokenDecoded: any = jwt_decode(token!)
+            tokenAPI.get(
+                'user/parameters/' + tokenDecoded.user_id + '/', 
+                {
+                    headers: {
+                        Authorization: 'JWT ' + token,
+                    }
+                }
+            )
+            .then(response => {
+                
+            })
+            .catch(error => {
+                console.log(error)
+            })
+            
+            tokenAPI.get(
+                'workout/exercise/', 
+                {
+                    headers: {
+                        Authorization: 'JWT ' + token,
+                    }
+                }
+            )
+            .then(response => {
+                
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        })
+    }, []);
+
+    useEffect(() => {
+        if(isFocused){
+            SecureStore.getItemAsync('access_token')
+            .then((token) => {
+                const tokenDecoded: any = jwt_decode(token!)
+                tokenAPI.get(
+                    'workout/workoutplan/', 
+                    {
+                        headers: {
+                            Authorization: 'JWT ' + token,
+                        }
+                    }
+                )
+                .then(response => {
+                    setPlans(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+                tokenAPI.get(
+                    'workout/exercise/', 
+                    {
+                        headers: {
+                            Authorization: 'JWT ' + token,
+                        }
+                    }
+                )
+                .then(response => {
+                    setExercises(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            })
+        }
+    }, [isFocused]);
 
     return (
         <View style={styles.container}>
             <View style={styles.greatingsContainer}>
                 <Text style={styles.greatingsText}>Hi, Maciej</Text>
             </View>
-            <ScrollView style={{marginBottom: normalize(70)}}>
+            <ScrollView style={{marginBottom: 80}} showsVerticalScrollIndicator={false}>
                 <WeekCalendar/>
                 <View>
                     <View style={styles.seeAllContainer}>
-                        <Text style={styles.seeAllText}>Current Plan's Workouts</Text>
+                        <Text style={styles.seeAllText}>Workout Plans</Text>
                         <TouchableText 
                         text='See All'
                         textStyle={styles.seeAllTouchText}
-                        onPress={()=>{}}/>
+                        onPress={()=>{props.navigation.navigate("PlanList")}}/>
                     </View>
-                    <ScrollableHorizontalList/>
+                    <ScrollableHorizontalList data={plans}/>
                 </View>
                 <View>
                     <View style={styles.seeAllContainer}>
@@ -43,9 +117,9 @@ const HomeScreen = () => {
                         <TouchableText 
                         text='See All'
                         textStyle={styles.seeAllTouchText}
-                        onPress={()=>{}}/>
+                        onPress={()=>{props.navigation.navigate("Workout")}}/>
                     </View>
-                    <ScrollableHorizontalList/>
+                    <ScrollableHorizontalList data={plans}/>
                 </View>
                 <View>
                     <View style={styles.seeAllContainer}>
@@ -55,7 +129,7 @@ const HomeScreen = () => {
                         textStyle={styles.seeAllTouchText}
                         onPress={()=>{}}/>
                     </View>
-                    <ScrollableHorizontalList/>
+                    <ScrollableHorizontalList data={exercises}/>
                 </View>
             </ScrollView>
         </View>

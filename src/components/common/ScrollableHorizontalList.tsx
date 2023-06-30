@@ -16,33 +16,27 @@ const ListElement = ({ name }: { name: string }) => {
             imageStyle={styles.backgroundImage}>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{name}</Text>
-                    <View>
-                            
-                    </View>
                 </View>
             </ImageBackground>
         </TouchableOpacity>
     )
 }
 
-const ScrollableHorizontalList = (props: any) => {
-    const data = [
-        { name: 'Item 1' },
-        { name: 'Item 2' },
-        { name: 'Item 3' },
-        { name: 'Item 4' },
-        { name: 'Item 5' },
-    ]
-
+const ScrollableHorizontalList = ({ data }: { data?: any[]}) => {
+    console.log(data)
     return (
         <ScrollView 
         horizontal = {true} 
         keyboardShouldPersistTaps = 'always'
-        showsHorizontalScrollIndicator = {false} 
+        showsHorizontalScrollIndicator = {false}
+        showsVerticalScrollIndicator={false}
         style={styles.container}>
-            {data.map((item, index) => (
-                <ListElement key={index} name={item.name}/>
-            ))}
+            {data !== undefined &&
+                data.map((item, index) => (
+                    <ListElement key={index} name={item.name}/>
+                ))
+            }
+            
         </ScrollView>
     )
 }

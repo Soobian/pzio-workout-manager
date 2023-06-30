@@ -3,7 +3,8 @@ const COLORS = {
     accentColor: 'rgb(107, 85, 232)',
     gradientColorOne: '#25B9FF',
     gradientColorTwo: '#6368D3',
-    whiteText: '#FFFFFF'
+    whiteText: '#FFFFFF',
+    blackColor: 'rgb(0, 0, 0)',
 }
 
 export { COLORS };

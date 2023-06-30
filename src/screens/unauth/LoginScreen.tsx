@@ -12,6 +12,7 @@ import { tokenAPI } from '../../api/API';
 
 import { normalize } from '../../utils/screen-size';
 import { FONTS } from '../../constants/fonts';
+import { COLORS } from '../../constants/colors';
 
 const { height, width } = Dimensions.get('window');
 
@@ -26,7 +27,7 @@ const LoginScreen = () => {
         e.preventDefault();
         const payload = JSON.stringify({email, password});
         console.log(payload);
-        /*
+        
         const onSuccess = ({ data }: any) => {
             console.log(data.access)
             console.log(data.refresh)
@@ -43,13 +44,11 @@ const LoginScreen = () => {
         tokenAPI.post('token/', payload)
             .then(onSuccess)
             .catch(onFailure);
-        */
-        navigation.navigate("Auth")
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <TopBar title='Log In'/>
+            <TopBar title='Log In' backButton={true}/>
             <View style={styles.contentContainer}>
                 <View style={styles.formContainer}>
                     <View style={styles.formFieldsContainer}>
@@ -74,6 +73,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: COLORS.backgroundColor
     },
     contentContainer: {
         flex: 1,

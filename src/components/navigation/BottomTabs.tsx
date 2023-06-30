@@ -11,11 +11,12 @@ const Tab = createBottomTabNavigator();
 import { HOME, DUMBBELL, USER } from '../../../assets/icons';
 import { normalize } from '../../utils/screen-size';
 import { COLORS } from '../../constants/colors';
+import WorkoutListScreen from '../../screens/auth/WorkoutListScreen';
 
 const BottomTabs = () => {
     const Tabs : NavigationTab[] = [
         { route: 'Home', component: HomeScreen, label: 'Home', icon: HOME },
-        { route: 'Workout', component: HomeScreen, label: 'Workouts', icon: DUMBBELL },
+        { route: 'Workout', component: WorkoutListScreen, label: 'Workouts', icon: DUMBBELL },
         { route: 'Profile', component: ProfileScreen, label: 'Profile', icon: USER },
     ]
 

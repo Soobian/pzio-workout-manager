@@ -13,13 +13,13 @@ type Props = {
 const Workout = ({}: Props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Workout</Text>
+            <Text style={styles.text}>TEST</Text>
             <LinearGradient 
             colors={[COLORS.gradientColorOne, COLORS.gradientColorTwo]}
             start={{x: 0, y: 0.5}}
             end={{x: 1, y: 0.5}}
             style={styles.gradientContainer}>
-                <Text style={styles.text}>19-01-2022</Text>
+                <Text style={styles.text}>DD-MM-RRRR</Text>
             </LinearGradient>
         </View>
     )

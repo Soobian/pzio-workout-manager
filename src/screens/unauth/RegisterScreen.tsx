@@ -11,6 +11,7 @@ import { baseAPI } from '../../api/API';
 
 import { normalize } from '../../utils/screen-size';
 import { FONTS } from '../../constants/fonts';
+import { COLORS } from '../../constants/colors';
 
 const { height, width } = Dimensions.get('window');
 
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: COLORS.backgroundColor
     },
     contentContainer: {
         flex: 1,

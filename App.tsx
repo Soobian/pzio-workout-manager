@@ -13,6 +13,12 @@ import StartScreen from './src/screens/unauth/StartScreen';
 import RegisterScreen from './src/screens/unauth/RegisterScreen';
 import LoginScreen from './src/screens/unauth/LoginScreen';
 import AuthStack from './src/stacks/AuthStack';
+import WorkoutScreen from './src/screens/auth/WorkoutScreen';
+import WorkoutPlanListScreen from './src/screens/auth/WorkoutPlanListScreen';
+import AddPlanScreen from './src/screens/auth/AddPlanScreen';
+import WorkoutPlanScreen from './src/screens/auth/WorkoutPlanScreen';
+import AddWorkoutScreen from './src/screens/auth/AddWorkoutScreen';
+import AddExerciseScreen from './src/screens/auth/AddExerciseScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -38,6 +44,12 @@ export default function App() {
                     </Stack.Group>
                     <Stack.Group>
                         <Stack.Screen options={{headerShown: false}} name="Auth" component={AuthStack}/>
+                        <Stack.Screen options={{headerShown: false}} name="Workout" component={WorkoutScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="PlanList" component={WorkoutPlanListScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="AddPlan" component={AddPlanScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="WorkoutPlan" component={WorkoutPlanScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="AddWorkout" component={AddWorkoutScreen}/>
+                        <Stack.Screen options={{headerShown: false}} name="AddExercise" component={AddExerciseScreen}/>
                     </Stack.Group>
                 </Stack.Navigator>
             </NavigationContainer>

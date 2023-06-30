@@ -1,24 +1,72 @@
-import { StyleSheet, Text, View, Image, StatusBar, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import { LineChart } from 'react-native-gifted-charts'
+import * as SecureStore from 'expo-secure-store'
+import jwt_decode from "jwt-decode";
+import { useIsFocused } from "@react-navigation/native";
 
 import { COLORS } from '../../constants/colors';
-import { MAN, WOMAN, BICEPS, WAIST, CHEST, QUADS } from '../../../assets/icons'
-import { normalize } from '../../utils/screen-size';
-import Icon from '../../components/Icon';
 import { FONTS } from '../../constants/fonts';
+import { MAN, WOMAN, BICEPS, WAIST, CHEST, QUADS } from '../../../assets/icons'
+
+import { normalize } from '../../utils/screen-size';
+import { tokenAPI } from '../../api/API';
+
+import Icon from '../../components/Icon';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import TouchableText from '../../components/TouchableText';
 import Workout from '../../components/profile/Workout';
 
 
+type PlotItem = {
+    value: number,
+}
+
 const ProfileScreen = () => {
-    const data1 = [{value: 10}, {value: 20}, {value: 15}, {value: 40}, {value: 50}, {value: 60}, {value: 45}, {value: 60}, {value:35}, {value: 30}, {value: 140}, {value: 140}, {value: 140}]
-
-    const data2 = [{value: 120, dataPointText: '120'}, {value: 115, dataPointText: '115'}, {value: 110, dataPointText: '110'}, {value: 120, dataPointText: '120'}, {value: 115, dataPointText: '115'}]
-
-    const [data, setData] = useState(data1)
+    const isFocused = useIsFocused();
+    const [chestData, setChestData] = useState<PlotItem[]>([])
+    const [quadsData, setQuadsData] = useState<PlotItem[]>([])
+    const [bicepsData, setBicepsData] = useState<PlotItem[]>([])
+    const [waistData, setWaistData] = useState<PlotItem[]>([])
+    const [data, setData] = useState<PlotItem[]>([])
+    
+    useEffect(() => {
+        if(isFocused){
+            SecureStore.getItemAsync('access_token')
+            .then((token) => {
+                const tokenDecoded: any = jwt_decode(token!)
+                tokenAPI.get(
+                    'measurements/user/' + tokenDecoded.user_id, 
+                    {
+                        headers: {
+                            Authorization: 'JWT ' + token,
+                        }
+                    }
+                )
+                .then(response => {
+                    var chestDataTemp: PlotItem[] = []
+                    var quadsDataTemp: PlotItem[] = []
+                    var bicepsDataTemp: PlotItem[] = []
+                    var waistDataTemp: PlotItem[] = []
+                    response.data.map((obj: any) => {
+                        chestDataTemp.push({value: obj.chestSize})
+                        quadsDataTemp.push({value: obj.thighSize})
+                        bicepsDataTemp.push({value: obj.thighSize})
+                        waistDataTemp.push({value: obj.waistSize})
+                    })
+                    setChestData(chestDataTemp)
+                    setQuadsData(quadsDataTemp)
+                    setBicepsData(bicepsDataTemp)
+                    setWaistData(waistDataTemp)
+                    setData(bicepsData)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            })
+        }
+    }, [])
 
     const customDataPoint = () => {
         return (
@@ -92,10 +140,10 @@ const ProfileScreen = () => {
                     />
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <ButtonWithIcon path={BICEPS} style={styles.button} iconStyle={styles.buttonIcon} onPress={()=>setData(data2)}/>
-                    <ButtonWithIcon path={CHEST} style={styles.button} iconStyle={styles.buttonIcon} onPress={()=>setData(data1)}/>
-                    <ButtonWithIcon path={WAIST} style={styles.button} iconStyle={styles.buttonIcon}/>
-                    <ButtonWithIcon path={QUADS} style={styles.button} iconStyle={styles.buttonIcon}/>
+                    <ButtonWithIcon path={BICEPS} style={styles.button} iconStyle={styles.buttonIcon} onPress={()=>setData(bicepsData)}/>
+                    <ButtonWithIcon path={CHEST} style={styles.button} iconStyle={styles.buttonIcon} onPress={()=>setData(chestData)}/>
+                    <ButtonWithIcon path={WAIST} style={styles.button} iconStyle={styles.buttonIcon} onPress={()=>setData(waistData)}/>
+                    <ButtonWithIcon path={QUADS} style={styles.button} iconStyle={styles.buttonIcon} onPress={()=>setData(quadsData)}/>
                 </View>
                 <View style={styles.seeAllContainer}>
                     <Text style={styles.seeAllText}>Recent Workouts</Text>
@@ -105,14 +153,6 @@ const ProfileScreen = () => {
                     onPress={()=>{console.log(1)}}/>
                 </View>
                 <View style={styles.workoutsContainer}>
-                    <Workout/>
-                    <Workout/>
-                    <Workout/>
-                    <Workout/>
-                    <Workout/>
-                    <Workout/>
-                    <Workout/>
-                    <Workout/>
                     <Workout/>
                     <Workout/>
                     <Workout/>

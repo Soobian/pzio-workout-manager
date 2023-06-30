@@ -1,6 +1,6 @@
 type NavigationTab = {
     route: string;
-    component: () => JSX.Element;
+    component: (props: any) => JSX.Element;
     label: string;
     icon: string;
 }
